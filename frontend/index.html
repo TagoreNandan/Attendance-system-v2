@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Faculty Portal</title>
+    <!-- Modern professional font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- LOGIN VIEW -->
+    <div id="loginView" class="view active">
+        <div class="uni-card login-card">
+            <div class="uni-logo">University Portal</div>
+            <h1>Faculty Access</h1>
+            <p>Please log in with your university credentials.</p>
+            <form onsubmit="event.preventDefault(); login();">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="emailInput" placeholder="faculty@university.edu" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="passwordInput" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="primary-btn mt-4">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView" class="view hidden">
+        
+        <header class="top-nav">
+            <div class="nav-brand">University Portal</div>
+            <div class="nav-user">
+                <span id="facultyNameDisplay">Faculty</span>
+                <button class="text-btn" onclick="logout()">Sign Out</button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            
+            <!-- LEFT COLUMN: CALL INITIATION -->
+            <section class="uni-card tracker-section">
+                <div class="section-header">
+                    <h2>Attendance Trigger</h2>
+                    <p>Select context and paste absentee roll numbers to initiate automated calls.</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Assigned Subject</label>
+                        <input type="text" id="subject" readonly class="readonly-input">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Date</label>
+                        <input type="date" id="dateInput">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Class/Cohort</label>
+                        <select id="className">
+                            <option value="B.Tech 1st Year">B.Tech 1st Year</option>
+                            <option value="B.Tech 2nd Year">B.Tech 2nd Year</option>
+                            <option value="B.Tech 3rd Year">B.Tech 3rd Year</option>
+                            <option value="B.Tech 4th Year">B.Tech 4th Year</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Department</label>
+                        <select id="department">
+                            <option value="CSE">CSE</option>
+                            <option value="CSD">CSD</option>
+                            <option value="CSM">CSM</option>
+                            <option value="ECE">ECE</option>
+                            <option value="MECH">MECH</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Section</label>
+                        <select id="section">
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                            <option value="D">Section D</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mt-4">
+                    <label>Absentee Roll Numbers</label>
+                    <textarea id="rolls" placeholder="Paste roll numbers (comma or space separated)"></textarea>
+                </div>
+
+                <button class="primary-btn mt-4" id="startCallsBtn" onclick="startCalls()">
+                    <span class="btn-text">Initiate Calls</span>
+                    <div class="spinner hidden" id="callSpinner"></div>
+                </button>
+
+                <div id="status" class="status-box hidden"></div>
+            </section>
+
+            <!-- RIGHT COLUMN: TRANSCRIPTS VIEWER -->
+            <section class="uni-card viewer-section">
+                <div class="section-header">
+                    <h2>Automated Transcripts</h2>
+                    <p>Select a recent session to view parent response data natively.</p>
+                </div>
+                
+                <div class="sidebar-layout">
+                    <!-- Sheet List -->
+                    <div class="sheet-list-container">
+                        <ul id="sheetList" class="sheet-list">
+                            <li class="loading-text">Loading sheets...</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sheet Data Table -->
+                    <div class="sheet-data-container">
+                        <div id="tableSpinner" class="spinner center-spinner hidden"></div>
+                        <div id="tablePlaceholder" class="placeholder-text">Select a transcript from the list to view data.</div>
+                        <div class="table-scroll-wrapper">
+                            <table class="data-table hidden" id="transcriptTable">
+                                <thead>
+                                    <tr>
+                                        <th>Roll</th>
+                                        <th>Reason</th>
+                                        <th>Transcript</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transcriptBody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

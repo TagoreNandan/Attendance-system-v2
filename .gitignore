@@ -1,0 +1,14 @@
+__pycache__/
+.venv/
+venv/
+
+.env
+credentials.json
+
+*.pyc
+temp.wav
+
+.DS_Store
+.vscode/credentials.json
+ai-calling-system-491504-5fec9044a08c.json
+ai-calling-system-491504-5fec9044a08c.json
